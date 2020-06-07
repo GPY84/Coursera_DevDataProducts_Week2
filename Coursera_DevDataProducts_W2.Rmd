@@ -1,0 +1,54 @@
+---
+title: "Coursera_DevDataProducts_RmdLeaflet"
+author: "Thomas Goeppert"
+date: "7 6 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Task
+
+Create a web page using R Markdown that features a map created with Leaflet.
+
+Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!
+
+
+# Load PACKAGE
+
+```{r}
+library(leaflet)
+```
+
+# Create MAP - lets have a look where I live
+
+```{r}
+
+geomData <- data.frame(lat = 48.40476, long = 8.01433, desc = "Gengenbach - This is my home town")
+
+map <- leaflet() %>% 
+            addTiles() %>% 
+            addMarkers(lng = geomData$long ,lat = geomData$lat,popup = geomData$desc)
+
+map
+
+```
+
+# Create second MAP - lets have a look at two neighbour Cities and circle size of population
+
+```{r}
+
+geomDataNeighb <- data.frame(lat = c(48.40476,48.4639,48.4), long = c(8.01433,7.9313,7.9833), desc = c("Gengenbach","Offenburg","Berghaupten"), pop = c(11000, 60000,2400))
+
+mapNeighb <- leaflet() %>% 
+            addTiles() %>% 
+            addCircles(lng = geomDataNeighb$long, lat = geomDataNeighb$lat,  popup = geomDataNeighb$desc, radius = sqrt(geomDataNeighb$pop)*20)
+
+mapNeighb
+
+```
+
